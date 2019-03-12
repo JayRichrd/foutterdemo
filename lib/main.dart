@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 void main() => runApp(MyApp());
 
@@ -8,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appName = '自定义主题';
     return MaterialApp(
-      title: '使用第三方包示例',
+      title: 'http请求示例',
 //      theme: new ThemeData(
 //        brightness: Brightness.light,
 //        primaryColor: Colors.lightGreen[600],
@@ -16,15 +19,18 @@ class MyApp extends StatelessWidget {
 //      ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('使用第三方包'),
+          title: Text('http请求'),
         ),
         body: Center(
           child: RaisedButton(
             onPressed: () {
               const url = 'http://www.baidu.com';
-              launch(url);
+              http.get(url).then((response) {
+                print("状态：${response.statusCode}");
+                print("正文：${response.body}");
+              });
             },
-            child: Text('打开百度'),
+            child: Text('发起http请求'),
           ),
         ),
       ),
@@ -72,10 +78,15 @@ class _MyHomePageState extends State<MyHomePage> {
 //      ),
       body: new Center(
         child: new Container(
-          color: Theme.of(context).accentColor,
+          color: Theme
+              .of(context)
+              .accentColor,
           child: new Text(
             '带有背景颜色的文本组件',
-            style: Theme.of(context).textTheme.title,
+            style: Theme
+                .of(context)
+                .textTheme
+                .title,
           ),
         ),
       ),
