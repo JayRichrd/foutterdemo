@@ -12,29 +12,39 @@ class MyApp extends StatelessWidget {
     final appName = '自定义主题';
     return MaterialApp(
       title: 'http请求示例',
-//      theme: new ThemeData(
-//        brightness: Brightness.light,
-//        primaryColor: Colors.lightGreen[600],
-//        accentColor: Colors.orange[600],
-//      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('http请求'),
         ),
         body: Center(
           child: RaisedButton(
-            onPressed: () {
-              const url = 'http://www.baidu.com';
-              http.get(url).then((response) {
-                print("状态：${response.statusCode}");
-                print("正文：${response.body}");
-              });
-            },
+            onPressed: getWeatherData,
             child: Text('发起http请求'),
           ),
         ),
       ),
     );
+  }
+
+  /**
+   *
+   */
+  void getWeatherData() async {
+    try {
+      // 1.实例化一个HttpClient对象
+      HttpClient httpClient = new HttpClient();
+      // 2.发起http请求
+      HttpClientRequest httpRequest = await httpClient.getUrl(
+          Uri.parse("http://t.weather.sojson.com/api/weather/city/101030"));
+      // 3.等待服务器返回数据
+      HttpClientResponse httpResponse = await httpRequest.close();
+      var result = await httpResponse.transform(utf8.decoder).join();
+      print(result);
+      // 4.关闭httpClient
+      httpClient.close();
+    } catch (e) {
+      print("请求失败：$e");
+    } finally {}
   }
 }
 
@@ -62,39 +72,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-//      body: Center(
-//        child: Column(
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'You have pushed the button this many times:',
-//            ),
-//            Text(
-//              '$_counter',
-//              style: Theme.of(context).textTheme.display1,
-//            ),
-//          ],
-//        ),
-//      ),
       body: new Center(
         child: new Container(
-          color: Theme
-              .of(context)
-              .accentColor,
+          color: Theme.of(context).accentColor,
           child: new Text(
             '带有背景颜色的文本组件',
-            style: Theme
-                .of(context)
-                .textTheme
-                .title,
+            style: Theme.of(context).textTheme.title,
           ),
         ),
       ),
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: _incrementCounter,
-//        tooltip: 'Increment',
-//        child: Icon(Icons.add),
-//      ), // This trailing comma makes auto-formatting nicer for build methods.
       floatingActionButton: new Theme(
           data: Theme.of(context).copyWith(accentColor: Colors.green),
           child: new FloatingActionButton(
