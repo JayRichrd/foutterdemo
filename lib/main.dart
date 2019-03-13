@@ -12,30 +12,31 @@ class MyApp extends StatelessWidget {
     final appName = '自定义主题';
     return MaterialApp(
       title: '容器组件示例',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('容器组件示例'),
-        ),
-        body: Center(
-          child: Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey,
-                width: 8.0,
-              ),
-              borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
-            ),
-            child: Text(
-              'Text',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30.0),
-            ),
-          ),
-        ),
-      ),
+//      home: Scaffold(
+//        appBar: AppBar(
+//          title: Text('容器组件示例'),
+//        ),
+//        body: Center(
+//          child: Container(
+//            width: 200,
+//            height: 200,
+//            decoration: BoxDecoration(
+//              color: Colors.white,
+//              border: Border.all(
+//                color: Colors.grey,
+//                width: 8.0,
+//              ),
+//              borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
+//            ),
+//            child: Text(
+//              'Text',
+//              textAlign: TextAlign.center,
+//              style: TextStyle(fontSize: 30.0),
+//            ),
+//          ),
+//        ),
+//      ),
+      home: ImageDemo(),
     );
   }
 
@@ -58,6 +59,18 @@ class MyApp extends StatelessWidget {
     } catch (e) {
       print("请求失败：$e");
     } finally {}
+  }
+}
+
+class ImageDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Image.network(
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552456810628&di=29016e3770f818c44c7c82084455d577&imgtype=0&src=http%3A%2F%2Fpic5.nipic.com%2F20091223%2F3279936_153719006353_2.jpg',
+        fit: BoxFit.fitWidth,
+      ),
+    );
   }
 }
 
