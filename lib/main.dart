@@ -11,15 +11,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appName = '自定义主题';
     return MaterialApp(
-      title: 'http请求示例',
+      title: '容器组件示例',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('http请求'),
+          title: Text('容器组件示例'),
         ),
         body: Center(
-          child: RaisedButton(
-            onPressed: getWeatherData,
-            child: Text('发起http请求'),
+          child: Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey,
+                width: 8.0,
+              ),
+              borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
+            ),
+            child: Text(
+              'Text',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 30.0),
+            ),
           ),
         ),
       ),
