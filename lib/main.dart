@@ -5,7 +5,85 @@ import 'dart:convert';
 import 'dart:io';
 
 void main() =>
-    runApp(MyApp(items: List<String>.generate(500, (i) => "Item $i")));
+//    runApp(MyApp(items: List<String>.generate(500, (i) => "Item $i")));
+    runApp(new LoginPage());
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => new _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  GlobalKey<FormState> loginKey = new GlobalKey<FormState>();
+  String userName;
+  String passWord;
+
+  void login() {
+    var loginForm = loginKey.currentState;
+    if (loginForm.validate()) {
+      loginForm.save();
+      print('userName: ' + userName + ' passWord: ' + passWord);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Form表单示例',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Form 表单示例'),
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                  key: loginKey,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: '请输入用户名',
+                        ),
+                        onSaved: (value) {
+                          userName = value;
+                        },
+                        onFieldSubmitted: (value) {},
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: '请输密码',
+                        ),
+                        obscureText: true,
+                        validator: (value) {
+                          return value.length < 6 ? "密码长度不足6位" : "密码校验通过";
+                        },
+                        onSaved: (value) {
+                          passWord = value;
+                        },
+                        onFieldSubmitted: (value) {},
+                      ),
+                      SizedBox(
+                        width: 340.0,
+                        height: 42.0,
+                        child: RaisedButton(
+                          onPressed: login,
+                          child: Text(
+                            '登录',
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   final List<String> items;
