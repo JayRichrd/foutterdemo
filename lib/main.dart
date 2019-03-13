@@ -6,7 +6,8 @@ import 'dart:io';
 
 void main() =>
 //    runApp(MyApp(items: List<String>.generate(500, (i) => "Item $i")));
-    runApp(new LoginPage());
+//    runApp(new LoginPage());
+    runApp(new MyApp());
 
 class LoginPage extends StatefulWidget {
   @override
@@ -110,8 +111,17 @@ class MyApp extends StatelessWidget {
 //        ),
 //      ),
 //    );
+//    return MaterialApp(
+//      home: GridDemoLayout(),
+//    );
     return MaterialApp(
-      home: GridDemoLayout(),
+      home: MyHomePage(),
+      title: 'MaterialApp实例',
+      routes: {
+        '/first': (BuildContext context) => FirstPage(),
+        '/second': (BuildContext context) => SecondPage(),
+      },
+      initialRoute: '/first',
     );
   }
 
@@ -134,6 +144,95 @@ class MyApp extends StatelessWidget {
     } catch (e) {
       print("请求失败：$e");
     } finally {}
+  }
+}
+
+class FirstPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('这是第一页'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/second');
+          },
+          child: Text(
+            '第一页',
+            style: TextStyle(fontSize: 28.0),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('这是第二页'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/first');
+          },
+          child: Text(
+            '第二页',
+            style: TextStyle(fontSize: 28.0),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//这是一个可改变的Widget
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text('MaterialApp示例'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: '搜索',
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            tooltip: '添加',
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.share),
+            tooltip: '分享',
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Center(
+        child: Text(
+          '主页',
+          style: TextStyle(fontSize: 28.0),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 50.0,
+        ),
+      ),
+    );
   }
 }
 
@@ -309,14 +408,14 @@ class TextContainerDemo extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  final String title;
-
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+//class MyHomePage extends StatefulWidget {
+//  final String title;
+//
+//  MyHomePage({Key key, this.title}) : super(key: key);
+//
+//  @override
+//  _MyHomePageState createState() => _MyHomePageState();
+//}
 
 class LayoutDemo extends StatelessWidget {
   @override
@@ -338,36 +437,36 @@ class LayoutDemo extends StatelessWidget {
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: new Center(
-        child: new Container(
-          color: Theme.of(context).accentColor,
-          child: new Text(
-            '带有背景颜色的文本组件',
-            style: Theme.of(context).textTheme.title,
-          ),
-        ),
-      ),
-      floatingActionButton: new Theme(
-          data: Theme.of(context).copyWith(accentColor: Colors.green),
-          child: new FloatingActionButton(
-            onPressed: null,
-            child: new Icon(Icons.computer),
-          )),
-    );
-  }
-}
+//class _MyHomePageState extends State<MyHomePage> {
+//  int _counter = 0;
+//
+//  void _incrementCounter() {
+//    setState(() {
+//      _counter++;
+//    });
+//  }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      appBar: AppBar(
+//        title: Text(widget.title),
+//      ),
+//      body: new Center(
+//        child: new Container(
+//          color: Theme.of(context).accentColor,
+//          child: new Text(
+//            '带有背景颜色的文本组件',
+//            style: Theme.of(context).textTheme.title,
+//          ),
+//        ),
+//      ),
+//      floatingActionButton: new Theme(
+//          data: Theme.of(context).copyWith(accentColor: Colors.green),
+//          child: new FloatingActionButton(
+//            onPressed: null,
+//            child: new Icon(Icons.computer),
+//          )),
+//    );
+//  }
+//}
