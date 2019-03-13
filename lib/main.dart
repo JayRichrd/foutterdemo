@@ -112,7 +112,18 @@ class LayoutDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('图标组件示例')),
-        body: Icon(Icons.phone, color: Colors.green[500], size: 50));
+        body: Center(
+          child: IconButton(
+            icon: Icon(
+              Icons.volume_up,
+              size: 50,
+            ),
+            tooltip: '按下操作',
+            onPressed: () {
+              print('按下操作');
+            },
+          ),
+        ));
   }
 }
 
