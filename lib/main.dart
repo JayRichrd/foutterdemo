@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     final appName = '自定义主题';
     return MaterialApp(
       title: '容器组件示例',
-      home: TextContainerDemo(),
+      home: LayoutDemo(),
     );
   }
 
@@ -105,6 +105,15 @@ class MyHomePage extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
+}
+
+class LayoutDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text('图标组件示例')),
+        body: Icon(Icons.phone, color: Colors.green[500], size: 50));
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
